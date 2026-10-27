@@ -1,14 +1,12 @@
-# Deteksi Jalan Berlubang (Pothole Detection) menggunakan YOLOv8 dan YOLOv11
+# Deteksi Jalan Berlubang (Pothole Detection) menggunakan YOLOv8
 
-Proyek  ini berfokus pada implementasi dan studi komparatif algoritma Deep Learning berbasis Computer Vision untuk mendeteksi kerusakan jalan (jalan berlubang) secara real-time. Proyek ini membandingkan arsitektur YOLOv8 dengan model generasi terbaru yaitu YOLOv11 guna menemukan model paling optimal untuk sistem pemantauan infrastruktur jalan cerdas.
+Proyek ini berfokus pada implementasi dan studi komparatif algoritma Deep Learning berbasis Computer Vision untuk mendeteksi kerusakan jalan (jalan berlubang) secara real-time. Repositori ini memuat implementasi khusus menggunakan arsitektur **YOLOv8** guna menemukan model paling optimal untuk sistem pemantauan infrastruktur jalan cerdas.
 
-## 🚀 Fitur Utama
+🚀 **Versi Aplikasi Demo**  
+Repositori ini khusus dibuat untuk menjalankan aplikasi demo secara cepat di Streamlit Cloud. Semua file utama dan bobot model terbaik (`yolov8_best.pt`) diletakkan langsung di halaman utama untuk memastikan performa aplikasi yang ringan dan instan.
+
+👉 **[Klik di sini untuk mencoba Aplikasi Demo YOLOv8](https://app-yolov8-ramadhanpa.streamlit.app/)**
+
+### 🛠️ Fitur & Tech Stack
 * **Deteksi Real-Time:** Mampu memproses input video atau kamera dasbor (dashcam) secara langsung dengan visualisasi kotak pembatas (bounding box).
-* **Studi Komparatif:** Analisis performa komparatif antara arsitektur YOLOv8 dan YOLOv11 berdasarkan tingkat akurasi serta kecepatan komputasi.
-* **Integrasi Streamlit:** Antarmuka web interaktif yang memudahkan pengguna untuk mengunggah file video/gambar dan melihat hasil prediksi deteksi lubang secara instan.
-
-## 🛠️ Tech Stack
-* **Bahasa Pemrograman:** Python 3.x
-* **Framework AI:** Ultralytics YOLO (v8 & v11), PyTorch
-* **Pengolahan Citra:** OpenCV
-* **Antarmuka Web:** Streamlit
+* **Tech Stack:** Python 3.x, Ultralytics YOLOv8, PyTorch, OpenCV, Streamlit.
