@@ -39,10 +39,14 @@ if uploaded_file is not None:
     if img_original is None:
         st.error("Gagal membaca gambar")
     else:
-        img_annotated = img_original.copy()
+        # ==============================================================
+        # KONVERSI WARNA KE RGB SEBELUM DIGAMBAR KOTAK/TEKS
+        # ==============================================================
+        img_original_rgb = cv2.cvtColor(img_original, cv2.COLOR_BGR2RGB)
+        img_annotated_rgb = img_original_rgb.copy()
 
         # =========================
-        # DETEKSI
+        # DETEKSI VIA YOLO
         # =========================
         results = model.predict(source=temp_path, conf=confidence_threshold)
         result = results[0]
@@ -60,28 +64,30 @@ if uploaded_file is not None:
 
                 detected_classes.append(class_name.lower())
 
-                # =========================
-                # WARNA
-                # =========================
+                # ==============================================================
+                # PENENTUAN WARNA (FORMAT RGB LANGSUNG)
+                # ==============================================================
                 if class_id == 0:
-                    color = (0, 0, 255)   # merah
+                    color = (255, 0, 0)   # Merah murni di RGB
                 elif class_id == 1:
-                    color = (0, 255, 0)   # hijau
+                    color = (0, 255, 0)   # Hijau murni di RGB
                 else:
-                    color = (255, 255, 0)
+                    color = (0, 255, 255) # Cyan / Kuning di RGB
 
                 label = f"{class_name.lower()} {confidence:.2f}"
 
-                # BOX + TEXT
-                cv2.rectangle(img_annotated, (x1, y1), (x2, y2), color, 4)
-                cv2.putText(img_annotated, label, (x1, y1 - 10),
+                # ==============================================================
+                # PROSES GAMBAR BOX & TEKS (DIATAS GAMBAR RGB)
+                # ==============================================================
+                cv2.rectangle(img_annotated_rgb, (x1, y1), (x2, y2), color, 3) # Ketebalan 3 agar proporsional
+                cv2.putText(img_annotated_rgb, label, (x1, y1 - 10),
                             cv2.FONT_HERSHEY_SIMPLEX,
-                            0.8,
+                            0.7, # Ukuran font disesuaikan agar tidak pecah
                             color,
-                            4)
+                            2) # Ketebalan tulisan 2 agar rapi
 
             # =========================
-            # HASIL KLASIFIKASI
+            # HASIL KLASIFIKASI TEXT
             # =========================
             detected_classes = list(set(detected_classes))
 
@@ -102,13 +108,7 @@ if uploaded_file is not None:
             st.warning("Tidak ada objek terdeteksi")
 
         # =========================
-        # KONVERSI WARNA
-        # =========================
-        img_original_rgb = cv2.cvtColor(img_original, cv2.COLOR_BGR2RGB)
-        img_annotated_rgb = cv2.cvtColor(img_annotated, cv2.COLOR_BGR2RGB)
-
-        # =========================
-        # TAMPILKAN
+        # TAMPILKAN KE STREAMLIT
         # =========================
         col1, col2 = st.columns(2)
 
@@ -118,5 +118,5 @@ if uploaded_file is not None:
         with col2:
             st.image(img_annotated_rgb, caption="Hasil Deteksi dan Klasifikasi", use_column_width=True)
 
-    # Hapus file sementara
+    # Hapus file sementara dari memori server
     os.remove(temp_path)
