@@ -9,7 +9,7 @@ import tempfile
 # =========================
 @st.cache_resource
 def load_model():
-    return YOLO("weight/yolov8_best.pt")
+    return YOLO("yolov8_best.pt")
 
 model = load_model()
 confidence_threshold = 0.15
