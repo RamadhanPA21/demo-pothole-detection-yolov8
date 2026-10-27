@@ -49,7 +49,7 @@ if uploaded_file is not None:
         # DETEKSI VIA YOLO
         # =========================
         results = model.predict(source=temp_path, conf=confidence_threshold)
-        result = results[0]
+        result = results[0] # Bounded index ke-0 untuk membaca output list YOLO
 
         detected_classes = []
 
@@ -79,12 +79,12 @@ if uploaded_file is not None:
                 # ==============================================================
                 # PROSES GAMBAR BOX & TEKS (DIATAS GAMBAR RGB)
                 # ==============================================================
-                cv2.rectangle(img_annotated_rgb, (x1, y1), (x2, y2), color, 3) # Ketebalan 3 agar proporsional
+                cv2.rectangle(img_annotated_rgb, (x1, y1), (x2, y2), color, 3)
                 cv2.putText(img_annotated_rgb, label, (x1, y1 - 10),
                             cv2.FONT_HERSHEY_SIMPLEX,
-                            0.7, # Ukuran font disesuaikan agar tidak pecah
+                            0.7,
                             color,
-                            2) # Ketebalan tulisan 2 agar rapi
+                            2)
 
             # =========================
             # HASIL KLASIFIKASI TEXT
